@@ -9,10 +9,12 @@ parser.add_argument("-k", "--key", help="Enter the name of the file containing t
 
 args = parser.parse_args()
 
-with open(args.key, "rb") as key_file:
-    cipher_key = key_file.read()
+try:
+    with open(args.key, "rb") as key_file:
+        cipher_key = key_file.read()
+except FileNotFoundError:
+    print(f"The file: {args.key} was not found!")
   
-
 cipher_suite = Fernet(cipher_key)
 
 meddelande = args.Message.encode()
@@ -25,11 +27,3 @@ else:
     edited_file_name = args.File_name + ".enc"
     with open(edited_file_name, "wb") as encrypt_file:
         encrypt_file.write(cipher_text)
-
-
-
-#argument som ska tas! 
-#Filnamn
-#Ska nyckel plockas direkt från mappen eller ska den läggas in
-#av användaren?
- 

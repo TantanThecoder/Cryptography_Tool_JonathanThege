@@ -8,21 +8,20 @@ parser.add_argument("Output_file_name", help="Name of the file the output is sto
 parser.add_argument("-k", "--key", help="Enter the name of the file containing the cryptography key", default="generated.key")
 args = parser.parse_args()
 
-with open(args.key, "rb") as key_file:
-   cipher_key = key_file.read()
-
-cipher_suite = Fernet(cipher_key)
-
-with open(args.File_name, "rb") as encrypted_file:
-    encrypterd_text = encrypted_file.read()
-
-decrypted_text = cipher_suite.decrypt(encrypterd_text)
-
-with open(args.Output_file_name, "wb") as decrypted_file:
-    decrypted_file.write(decrypted_text)
-
-
-#öppnar filnamnet på encryptade filen, tas in via args!
-#content läggs i en variabel som vi sen decryptar in i en ny variabel
-#printa eller lägg decryptat meddelande i en fil
-
+try:
+    with open(args.key, "rb") as key_file:
+        cipher_key = key_file.read()
+except FileNotFoundError:
+    print(f"The file: {args.key} was not found!")
+else:
+    cipher_suite = Fernet(cipher_key)
+    try:
+        with open(args.File_name, "rb") as encrypted_file:
+            encrypterd_text = encrypted_file.read()
+    except FileNotFoundError:
+        print(f"The file: {args.File_name} was not found!")
+    else:
+        decrypted_text = cipher_suite.decrypt(encrypterd_text)
+        
+        with open(args.Output_file_name, "wb") as decrypted_file:
+            decrypted_file.write(decrypted_text)
