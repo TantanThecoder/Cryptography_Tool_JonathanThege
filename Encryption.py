@@ -14,16 +14,15 @@ try:
         cipher_key = key_file.read()
 except FileNotFoundError:
     print(f"The file: {args.key} was not found!")
-  
-cipher_suite = Fernet(cipher_key)
-
-meddelande = args.Message.encode()
-
-cipher_text = cipher_suite.encrypt(meddelande)
-if ".enc" in args.File_name:
-    with open(args.File_name, "wb") as encrypt_file:
-        encrypt_file.write(cipher_text)
 else:
-    edited_file_name = args.File_name + ".enc"
-    with open(edited_file_name, "wb") as encrypt_file:
-        encrypt_file.write(cipher_text)
+    cipher_suite = Fernet(cipher_key)
+    meddelande = args.Message.encode()
+    cipher_text = cipher_suite.encrypt(meddelande)
+
+    if ".enc" in args.File_name:
+        with open(args.File_name, "wb") as encrypt_file:
+            encrypt_file.write(cipher_text)
+    else:
+        edited_file_name = args.File_name + ".enc"
+        with open(edited_file_name, "wb") as encrypt_file:
+            encrypt_file.write(cipher_text)
