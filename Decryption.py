@@ -4,7 +4,7 @@ import argparse
 parser = argparse.ArgumentParser(description="Decrypt an encrypted text")
 
 parser.add_argument("File_name", help="Name of the file to decrypt")
-parser.add_argument("Output_file_name", help="Name of the file the output is stored in", default="Decrypted_message.txt")
+parser.add_argument("Output_file_name", help="Name of the file the output is stored in")
 parser.add_argument("-k", "--key", help="Enter the name of the file containing the cryptography key", default="generated.key")
 args = parser.parse_args()
 
@@ -22,6 +22,6 @@ else:
         print(f"The file: {args.File_name} was not found!")
     else:
         decrypted_text = cipher_suite.decrypt(encrypterd_text)
-        
+
         with open(args.Output_file_name, "wb") as decrypted_file:
             decrypted_file.write(decrypted_text)
