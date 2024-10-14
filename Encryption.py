@@ -3,7 +3,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description="Encrypt a message or text")
 
-parser.add_argument("Data_type",choices=["File", "Terminal_input"] ,help="Choose either to encrypt a message in a file or an text input in the terminal!")
+parser.add_argument("Data_type",choices=["File", "Terminal_input"] ,help="Choose either to encrypt a message from a file or an text input from the terminal!")
 parser.add_argument("File_name", help="Name of the file you want to store the enctypted message in")
 parser.add_argument("Message", help="Write filename or input the text to be encrypted depending on earlier choice!")
 parser.add_argument("-k", "--key", help="Enter the name of the file containing the cryptography key", default="generated.key")
